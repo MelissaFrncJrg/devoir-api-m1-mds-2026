@@ -1,36 +1,16 @@
-# create a variable for token
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicHNldWRvIjoidGhvbWFzbGFmb3JnZUBnbWFpbC5jb20iLCJtb3RkcGFzc2UiOiIkMmIkMTAkVkNCeURSY0lyM1hyVTVWeS96anhvZXFST1JIU2pqa1dyMm9uNDAudjlRSUpiTjlmR1hxcDYiLCJpYXQiOjE3ODA1MjYwODZ9.hVMt3rzu9pR-sRSbTcMm6owWqn_7zDDcC7586kGz9UM
+# btoa("admin:admin1234") = YWRtaW46YWRtaW4xMjM0
+# Authorization: Basic YWRtaW46YWRtaW4xMjM0
 
-### Register
-POST http://localhost:1992/auth/local/register
-Content-Type: application/json
-
-{
-  "pseudo": "thomaslaforge@gmail.com",
-  "motdpasse": "admin1234"
-}
-
-### Login
-POST http://localhost:1992/auth/local
-Content-Type: application/json
-
-{
-  "pseudo": "thomaslaforge@gmail.com",
-  "motdpasse": "admin1234"
-}
-
-### Get all voitures
+### Get all voitures (public)
 GET http://localhost:1992/voitures/get-all
-Authorization: Bearer {{token}}
 
-### Get one voiture (by query param)
+### Get one voiture (public)
 GET http://localhost:1992/voitures/get-this-one?id=1
-Authorization: Bearer {{token}}
 
-### Create voiture (body wrapped in data)
+### Create voiture (Basic Auth requise)
 POST http://localhost:1992/voitures/create
 Content-Type: application/json
-Authorization: Bearer {{token}}
+Authorization: Basic YWRtaW46YWRtaW4xMjM0
 
 {
   "data": {
@@ -39,10 +19,10 @@ Authorization: Bearer {{token}}
   }
 }
 
-### Update voiture (PATCH, id in path, body wrapped in data)
+### Update voiture (Basic Auth requise)
 PATCH http://localhost:1992/voitures/update/1
 Content-Type: application/json
-Authorization: Bearer {{token}}
+Authorization: Basic YWRtaW46YWRtaW4xMjM0
 
 {
   "data": {
@@ -51,6 +31,6 @@ Authorization: Bearer {{token}}
   }
 }
 
-### Delete voiture (by query param)
+### Delete voiture (Basic Auth requise)
 DELETE http://localhost:1992/voitures/delete?id=1
-Authorization: Bearer {{token}}
+Authorization: Basic YWRtaW46YWRtaW4xMjM0
