@@ -22,7 +22,7 @@ authRouter.post("/local/register", async (req, res) => {
                 pseudo
             } 
             });
-        res.json(newUser);
+        res.json({ id: newUser.id, pseudo: newUser.pseudo });
     }
 });
 
@@ -35,7 +35,7 @@ authRouter.post("/local", async (req, res) => {
     else {
         const ismotdpasseCorrect = await bcrypt.compare(motdpasse, userWithpseudo.motdpasse);
         if (ismotdpasseCorrect) {
-            const token = jwt.sign(userWithpseudo, process.env.JWT_SECRET!);
+            const token = jwt.sign({ id: userWithpseudo.id, pseudo: userWithpseudo.pseudo }, process.env.JWT_SECRET!, { expiresIn: "24h" });
             res.json({
                 token,
                 ...userWithpseudo
