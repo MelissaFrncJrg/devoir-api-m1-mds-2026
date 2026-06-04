@@ -23,9 +23,7 @@ export async function checkToken(req: Request, res: Response, next: NextFunction
         }
         else {
             try {
-                console.log('token', token)
                 const decoded = jwt.verify(token, process.env.JWT_SECRET!)
-                console.log('decoded', decoded);
                 if (decoded) {
                     req.token = token;
                     next();
@@ -35,7 +33,6 @@ export async function checkToken(req: Request, res: Response, next: NextFunction
                 }
             }
             catch(e){
-                console.log('invalid token on verify', e)
                 res.status(401).send("Invalid token on verify");
             }
         }

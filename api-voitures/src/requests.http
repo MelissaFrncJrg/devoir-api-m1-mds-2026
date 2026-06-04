@@ -1,12 +1,12 @@
 # create a variable for token
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicHNldWRvIjoidGhvbWFzbGFmb3JnZUBnbWFpbC5jb20iLCJtb3RkcGFzc2UiOiIkMmIkMTAkVkNCeURSY0lyM1hyVTVWeS96anhvZXFST1JIU2pqa1dyMm9uNDAudjlRSUpiTjlmR1hxcDYiLCJpYXQiOjE3ODA1MjYwODZ9.hVMt3rzu9pR-sRSbTcMm6owWqn_7zDDcC7586kGz9UM
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicHNldWRvIjoibWVsaXNzYUB1c2VyLmNvbSIsIm1vdGRwYXNzZSI6IiQyYiQxMCQ5cTBIOURQeGo1WjdnaUUvNlAwLk8uU29ZbVdaNzhUNlVtOGw5UUJDUWNZQnQ2TUJHVXBBeSIsImlhdCI6MTc4MDU3Nzg3Mn0.fzEdfX_4ZyTwF6wz9RIrPBUjb6e9NwnWXXkS107qqSI
 
 ### Register
 POST http://localhost:1992/auth/local/register
 Content-Type: application/json
 
 {
-  "pseudo": "thomaslaforge@gmail.com",
+  "pseudo": "melissa@user.com",
   "motdpasse": "admin1234"
 }
 
@@ -15,42 +15,38 @@ POST http://localhost:1992/auth/local
 Content-Type: application/json
 
 {
-  "pseudo": "thomaslaforge@gmail.com",
+  "pseudo": "melissa@user.com",
   "motdpasse": "admin1234"
 }
 
 ### Get all voitures
-GET http://localhost:1992/voitures/get-all
+GET http://localhost:1992/voitures
 Authorization: Bearer {{token}}
 
-### Get one voiture (by query param)
-GET http://localhost:1992/voitures/get-this-one?id=1
+### Get one voiture
+GET http://localhost:1992/voitures/1
 Authorization: Bearer {{token}}
 
-### Create voiture (body wrapped in data)
-POST http://localhost:1992/voitures/create
+### Create voiture
+POST http://localhost:1992/voitures
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "data": {
-    "name": "Peugeot 208",
-    "price": 15000
-  }
+  "name": "Peugeot 208",
+  "price": 15000
 }
 
-### Update voiture (PATCH, id in path, body wrapped in data)
-PATCH http://localhost:1992/voitures/update/1
+### Update voiture
+PATCH http://localhost:1992/voitures/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "data": {
-    "name": "Peugeot 308",
-    "price": 18000
-  }
+  "name": "Peugeot 308",
+  "price": 18000
 }
 
-### Delete voiture (by query param)
-DELETE http://localhost:1992/voitures/delete?id=1
+### Delete voiture
+DELETE http://localhost:1992/voitures/1
 Authorization: Bearer {{token}}
