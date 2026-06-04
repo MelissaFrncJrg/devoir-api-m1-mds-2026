@@ -6,18 +6,18 @@ const prisma = new PrismaClient();
 
 export const voituresRouter = Router();
 
-voituresRouter.get("/get-all", async (req, res) => {
+voituresRouter.get("/", async (req, res) => {
     const voitures = await prisma.voiture.findMany();
     res.json(voitures);
 });
 
-voituresRouter.get("/get-this-one", async (req, res) => {
-    const id = parseInt(req.query.id as string);
+voituresRouter.get("/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
     const voiture = await prisma.voiture.findFirst({ where: { id: id } });
     res.json(voiture);
 });
 
-voituresRouter.post("/create", checkToken, async (req, res) => {
+voituresRouter.post("/", checkToken, async (req, res) => {
     const { name, price } = req.body.data;
     if(!name || !price){
         res.status(400).send("Missing required information");
@@ -25,7 +25,7 @@ voituresRouter.post("/create", checkToken, async (req, res) => {
     else {
         const newVoiture = await prisma.voiture.create({
             data: {
-                name, 
+                name,
                 price
             }
         });
@@ -33,7 +33,7 @@ voituresRouter.post("/create", checkToken, async (req, res) => {
     }
 });
 
-voituresRouter.patch("/update/:id", checkToken, async (req, res) => {
+voituresRouter.patch("/:id", checkToken, async (req, res) => {
     const id = parseInt(req.params.id);
     const { name, price } = req.body.data;
     const actual = await prisma.voiture.findFirst({ where: { id: id } });
@@ -49,10 +49,11 @@ voituresRouter.patch("/update/:id", checkToken, async (req, res) => {
     }
 });
 
-voituresRouter.delete("/delete", checkToken, async (req, res) => {
-    const actual = await prisma.voiture.findFirst({ where: { id: parseInt(req.query.id as string) } });
+voituresRouter.delete("/:id", checkToken, async (req, res) => {
+    const id = parseInt(req.params.id);
+    const actual = await prisma.voiture.findFirst({ where: { id } });
     if (actual) {
-        await prisma.voiture.delete({ where: { id: parseInt(req.query.id as string) } });
+        await prisma.voiture.delete({ where: { id } });
         res.json(actual);
     }
     else {
