@@ -6,12 +6,12 @@ const prisma = new PrismaClient();
 
 export const voituresRouter = Router();
 
-voituresRouter.get("/", async (req, res) => {
+voituresRouter.get("/", checkToken, async (req, res) => {
     const voitures = await prisma.voiture.findMany();
     res.json(voitures);
 });
 
-voituresRouter.get("/:id", async (req, res) => {
+voituresRouter.get("/:id", checkToken, async (req, res) => {
     const id = parseInt(req.params.id);
     const voiture = await prisma.voiture.findFirst({ where: { id: id } });
     res.json(voiture);
