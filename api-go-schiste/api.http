@@ -2,3 +2,31 @@
 
 ### GET all schistes
 GET {{baseUrl}}/api/schistes
+
+### GET one schiste
+GET {{baseUrl}}/api/schistes/1
+
+### POST create schiste
+POST {{baseUrl}}/api/schistes
+Content-Type: application/json
+
+{
+  "nom": "Schiste racaillou",
+  "origine": "Bourg-Palette",
+  "profondeur": -8000,
+  "description": "Roche de type roche"
+}
+
+### PUT update schiste
+PUT {{baseUrl}}/api/schistes/1
+Content-Type: application/json
+
+{
+  "nom": "Schiste ardoisier modifié",
+  "origine": "Bretagne",
+  "profondeur": 150.0,
+  "description": "Description mise à jour"
+}
+
+### DELETE schiste
+DELETE {{baseUrl}}/api/schistes/1
