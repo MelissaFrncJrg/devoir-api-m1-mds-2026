@@ -18,7 +18,7 @@ voituresRouter.get("/:id", checkToken, async (req, res) => {
 });
 
 voituresRouter.post("/", checkToken, async (req, res) => {
-    const { name, price } = req.body.data;
+    const { name, price } = req.body;
     if(!name || !price){
         res.status(400).send("Missing required information");
     }
@@ -35,7 +35,7 @@ voituresRouter.post("/", checkToken, async (req, res) => {
 
 voituresRouter.patch("/:id", checkToken, async (req, res) => {
     const id = parseInt(req.params.id);
-    const { name, price } = req.body.data;
+    const { name, price } = req.body;
     const actual = await prisma.voiture.findFirst({ where: { id: id } });
     if (actual) {
         const updatedVoiture = await prisma.voiture.update({
