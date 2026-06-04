@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
-import { checkToken } from "../middlewares/checkToken";
+import { basicAuth } from "../middlewares/basicAuth";
 
 const prisma = new PrismaClient();
 
@@ -17,7 +17,7 @@ voituresRouter.get("/get-this-one", async (req, res) => {
     res.json(voiture);
 });
 
-voituresRouter.post("/create", checkToken, async (req, res) => {
+voituresRouter.post("/create", basicAuth, async (req, res) => {
     const { name, price } = req.body.data;
     if(!name || !price){
         res.status(400).send("Missing required information");
@@ -33,7 +33,7 @@ voituresRouter.post("/create", checkToken, async (req, res) => {
     }
 });
 
-voituresRouter.patch("/update/:id", checkToken, async (req, res) => {
+voituresRouter.patch("/update/:id", basicAuth, async (req, res) => {
     const id = parseInt(req.params.id);
     const { name, price } = req.body.data;
     const actual = await prisma.voiture.findFirst({ where: { id: id } });
@@ -49,7 +49,7 @@ voituresRouter.patch("/update/:id", checkToken, async (req, res) => {
     }
 });
 
-voituresRouter.delete("/delete", checkToken, async (req, res) => {
+voituresRouter.delete("/delete", basicAuth, async (req, res) => {
     const actual = await prisma.voiture.findFirst({ where: { id: parseInt(req.query.id as string) } });
     if (actual) {
         await prisma.voiture.delete({ where: { id: parseInt(req.query.id as string) } });
