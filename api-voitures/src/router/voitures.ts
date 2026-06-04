@@ -59,6 +59,8 @@ voituresRouter.patch("/:id", checkToken, async (req, res) => {
                 }
             });
             res.json(updatedVoiture);
+        } else {
+            res.status(404).send("Voiture not found");
         }
     } catch (error) {
         res.status(500).send("Failed to update entry.")
